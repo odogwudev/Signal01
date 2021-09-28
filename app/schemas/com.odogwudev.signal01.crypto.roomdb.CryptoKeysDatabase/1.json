@@ -1,0 +1,163 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "0534c9c5481c9874335bc8b2a014f8f6",
+    "entities": [
+      {
+        "tableName": "prekeys",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`prekey_id` INTEGER NOT NULL, `prekey` BLOB, PRIMARY KEY(`prekey_id`))",
+        "fields": [
+          {
+            "fieldPath": "mPreKeyId",
+            "columnName": "prekey_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mPreKeyRecord",
+            "columnName": "prekey",
+            "affinity": "BLOB",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "prekey_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "local_identity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `reg_id` INTEGER NOT NULL, `id_key_pair` BLOB)",
+        "fields": [
+          {
+            "fieldPath": "mId",
+            "columnName": "mId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mRegistrationId",
+            "columnName": "reg_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mIdentityKeyPair",
+            "columnName": "id_key_pair",
+            "affinity": "BLOB",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "mId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "trusted_identities",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`address_name` TEXT NOT NULL, `device_id` INTEGER NOT NULL, `identity_key` BLOB, PRIMARY KEY(`address_name`))",
+        "fields": [
+          {
+            "fieldPath": "mAddressName",
+            "columnName": "address_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mDeviceId",
+            "columnName": "device_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mIdentityKey",
+            "columnName": "identity_key",
+            "affinity": "BLOB",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "address_name"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "signed_prekeys",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `signed_prekey` BLOB, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "mId",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mSignedPreKeyRecord",
+            "columnName": "signed_prekey",
+            "affinity": "BLOB",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "sessions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`address_name` TEXT NOT NULL, `device_id` INTEGER NOT NULL, `session` BLOB, PRIMARY KEY(`address_name`, `device_id`))",
+        "fields": [
+          {
+            "fieldPath": "mProtocolAddressName",
+            "columnName": "address_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mDeviceId",
+            "columnName": "device_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mSession",
+            "columnName": "session",
+            "affinity": "BLOB",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "address_name",
+            "device_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"0534c9c5481c9874335bc8b2a014f8f6\")"
+    ]
+  }
+}
